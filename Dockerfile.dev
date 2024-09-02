@@ -1,0 +1,17 @@
+FROM node:16-alpine
+
+WORKDIR '/app'
+
+COPY package.json .
+RUN npm install
+
+COPY . .
+
+# Avoid sudo permissions error by pre-generating .cache folder and 
+# setting ownership to node:16-alpine's node user:group
+RUN mkdir -p node_modules/.cache && chown node:node node_modules/.cache
+
+# switch to node:16-alpine's node user
+USER node
+
+CMD ["npm", "run", "start"]
