@@ -8,7 +8,6 @@ RUN ["npm", "run", "build"]
 
 # run phase
 FROM nginx
-EXPOSE 80
 COPY --from=builder /app/build /usr/share/nginx/html
 # no CMD bc the default nginx image start command handles it well enough
 
